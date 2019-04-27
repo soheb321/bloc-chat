@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class RoomList extends Component{
 constructor(props){
-  super(props)
+  super(props);
 
 this.state = {
     rooms: []
@@ -18,6 +18,21 @@ componentDidMount() {
     this.setState({ rooms: this.state.rooms.concat( room ) })
   });
 }
-render(){}
+render(){
+    return(
+        <section className="room-list">
+        {
+          this.state.rooms.map((room) =>
+            <ul className="room-list-key" key={room.key}>
+              <h2 className="room-name">
+                {room.name}
+              </h2>
+            </ul>
+          )
+        }
+      </section>
+
+    );
+}
 }
   export default RoomList;

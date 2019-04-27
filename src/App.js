@@ -16,7 +16,7 @@ firebase.initializeApp(config);
 class App extends Component {
   render() {
     return (
-     true
+     <RoomList firebase = {firebase}/>
     );
   }
 }
