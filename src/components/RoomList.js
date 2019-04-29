@@ -33,12 +33,17 @@ componentDidMount() {
 
 render(){
     return(
+        
         <section className="room-list">
+        <h1>Select a room</h1>
         {
           this.state.rooms.map((room) =>
             <ul className="room-list-key" key={room.key}>
+            
               <h2 className="room-name">
-                {room.name}
+              
+                <button value = {room.name} onClick = {(data) => this.props.setActiveRoom(data) }>{room.name}</button>
+                
               </h2>
             </ul>
           )
