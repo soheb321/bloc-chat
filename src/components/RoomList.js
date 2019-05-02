@@ -20,14 +20,18 @@ componentDidMount() {
     });
   }
 
-  createRoom(newRoomName) {
+  createRoom(data) {
+    data.preventDefault();
+   
     this.roomsRef.push({
-       name: newRoomName 
+       name: this.state.newRoomName ,
+       
     });
     this.setState({ newRoomName: '' });
  }
 
  addRoom(data) {
+   
     this.setState({ newRoomName: data.target.value });
  }
 
@@ -38,17 +42,16 @@ render(){
         <h1>Select a room</h1>
         {
           this.state.rooms.map((room) =>
-            <ul className="room-list-key" key={room.key}>
             
-              <h2 className="room-name">
+              <h2  key={room.key} className="room-name">
               
                 <button value = {room.name} onClick = {(data) => this.props.setActiveRoom(data) }>{room.name}</button>
                 
               </h2>
-            </ul>
+            
           )
         }
-        <form  onSubmit={ (data) => this.createRoom(this.state.newRoomName) }>
+        <form  onSubmit={ (data) => this.createRoom(data) }>
                <input  value={ this.state.newRoomName } onChange={ (data) => this.addRoom(data) }/>
                <input type="submit" />
             </form>
