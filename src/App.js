@@ -5,6 +5,7 @@ import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
 import User from './components/User';
 
+// Initialize Firebase
 var config = {
   apiKey: "AIzaSyDEYL19DU1nZnv71Xusq5qzFEs83lpO7Wo",
   authDomain: "bloc-chat-50e68.firebaseapp.com",
@@ -15,46 +16,42 @@ var config = {
 };
 firebase.initializeApp(config);
 
+
 class App extends Component {
   constructor(props){
     super(props);
+
     this.state = {
-      activeRoom: "None",
-      activeUser: "Guest"
-    };  
+      activeRoom: 'None',
+      user: 'Guest'
+    }
   }
 
-  showUser(user) {
-    this.setState( {activeUser: user.displayName} )
+  setActiveRoom(room){
+    this.setState({activeRoom: room});
   }
 
-  setActiveRoom(data){
-    this.setState({activeRoom: data.target.value})
+  showUser(user){
+    this.setState({user: user});
     
   }
+
   render() {
     return (
       
-
+        <section >
+        <div>
+          <h1>Bloc Chat</h1>
+          </div>
+          <RoomList firebase={firebase} setActiveRoom={(room) => this.setActiveRoom(room)} activeRoom={this.state.activeRoom}/>
+          <div></div>
+          <MessageList firebase={firebase} user={this.state.user} activeRoom={this.state.activeRoom} />
+          <div></div>
+          <User firebase={firebase} showUser={(user)=>this.showUser(user)} user={this.state.user} />
+        </section>
       
-      <div>
-        <User firebase = {firebase}
-        showUser={(user) => this.showUser(user)}
-        activeUser={this.state.activeUser}
-        ></User>
-     <RoomList firebase = {firebase}
-     activeRoom={this.state.activeRoom}
-        setActiveRoom={(data) => this.setActiveRoom(data)}/>
-        <h1>Active Room: {this.state.activeRoom} </h1>
-        <MessageList
-        firebase={firebase}
-        activeRoom={this.state.activeRoom}
-      />
-
-    </div>
     );
   }
 }
 
 export default App;
-
